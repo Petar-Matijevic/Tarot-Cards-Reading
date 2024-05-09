@@ -4,6 +4,7 @@ import random
 with open('tarot.json') as f:
     data = json.load(f)
 
+
 def pull_unique_cards(num_cards, suite_choice):
     pulled_cards = []
 
@@ -41,32 +42,50 @@ def pull_unique_cards(num_cards, suite_choice):
             print("Upright card says:", card_interpretation)
         print()
 
-while True:
-    num_cards_to_pull = input("How many cards do you want to pull out? ")
-    if num_cards_to_pull.isdigit():
-        num_cards_to_pull = int(num_cards_to_pull)
-        if num_cards_to_pull > 0:
-            break
+
+def draw_cards():
+    while True:
+        num_cards_to_pull = input("How many cards do you want to pull out? ")
+        if num_cards_to_pull.isdigit():
+            num_cards_to_pull = int(num_cards_to_pull)
+            if num_cards_to_pull > 0:
+                break
+            else:
+                print("Please enter a number greater than zero.")
         else:
-            print("Please enter a number greater than zero.")
-    else:
-        print("Please enter a valid positive integer.")
+            print("Please enter a valid positive integer.")
 
-# User input for suite choice
-print("Please choose a suite:")
-print("1. Major Arcana")
-print("2. Minor Arcana")
-print("3. Both Major and Minor Arcana")
+    # User input for suite choice
+    print("Please choose a suite:")
+    print("1. Major Arcana")
+    print("2. Minor Arcana")
+    print("3. Both Major and Minor Arcana")
+
+    while True:
+        suite_choice = input("Enter your choice (1/2/3): ")
+        if suite_choice.isdigit():  # Check if input is a digit
+            suite_choice = int(suite_choice)
+            if suite_choice in [1, 2, 3]:  # Check if input is one of the valid choices
+                break
+            else:
+                print("Invalid choice. Please enter 1, 2, or 3.")
+        else:
+            print("Invalid input. Please enter a number.")
+
+    pull_unique_cards(num_cards_to_pull, suite_choice)
+
+
+def love_spread():
+    pass
+
 
 while True:
-    suite_choice = input("Enter your choice (1/2/3): ")
-    if suite_choice.isdigit():  # Check if input is a digit
-        suite_choice = int(suite_choice)
-        if suite_choice in [1, 2, 3]:  # Check if input is one of the valid choices
-            break
-        else:
-            print("Invalid choice. Please enter 1, 2, or 3.")
+    choice = input("Do you want to perform a Love Spread (L) or just draw cards (D)? ").upper()
+    if choice == 'L':
+        love_spread()
+        break
+    elif choice == 'D':
+        draw_cards()
+        break
     else:
-        print("Invalid input. Please enter a number.")
-
-pull_unique_cards(num_cards_to_pull, suite_choice)
+        print("Invalid choice. Please enter 'L' for Love Spread or 'D' for drawing cards.")
